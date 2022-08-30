@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils.dart/filters.dart';
+import 'confirmationScreem.dart';
 
 class ProductScreen extends StatefulWidget {
   ProductScreen({Key? key, required this.Collection, required this.id})
@@ -130,7 +131,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  snapshot.data!["price"],
+                                  "₹ ${snapshot.data!["price"]}",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: textSize * 0.022,
@@ -211,82 +212,174 @@ class _ProductScreenState extends State<ProductScreen> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  width: width > height
-                                      ? width * 0.1
-                                      : width * 0.3,
-                                  height: 55,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(11),
-                                    color: Color(0xff008535),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(11),
-                                    child: MaterialButton(
-                                      onPressed: (() async {
-                                        await FirebaseFirestore.instance
-                                            .collection("Chats")
-                                            .doc(snapshot.data!["userId"])
-                                            .collection("chat")
-                                            .doc(FirebaseAuth
-                                                .instance.currentUser!.uid)
-                                            .set({
-                                          "id": FirebaseAuth
-                                              .instance.currentUser!.uid,
-                                          "productId": snapshot.data!.id
-                                        });
-                                        FirebaseFirestore.instance
-                                            .collection("Chats")
-                                            .doc(snapshot.data!["userId"])
-                                            .collection("chat")
-                                            .doc(FirebaseAuth
-                                                .instance.currentUser!.uid)
-                                            .collection("chats")
-                                            .doc(DateTime.now().toString())
-                                            .set({
-                                          "Message": "Hi",
-                                          "sender": true
-                                        }).then((value) {
-                                          Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ChatRoom(
-                                                          userId: snapshot
-                                                              .data!["userId"],
-                                                          productId: snapshot
-                                                              .data!.id)),
-                                              (route) => false);
-                                        });
-                                      }),
-                                      child: Center(
-                                          child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SvgPicture.asset(
-                                              "assets/images/message.svg"),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            "Message",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: textSize * 0.02,
-                                              fontFamily: "Barlow",
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )
-                                        ],
-                                      )),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: width > height
+                                          ? width * 0.1
+                                          : width * 0.3,
+                                      height: 55,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(11),
+                                        color: Color(0xff008535),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(11),
+                                        child: MaterialButton(
+                                          onPressed: (() async {
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                );
+                                              },
+                                            );
+                                            await FirebaseFirestore.instance
+                                                .collection("Chats")
+                                                .doc(snapshot.data!["userId"])
+                                                .collection("chat")
+                                                .doc(FirebaseAuth
+                                                    .instance.currentUser!.uid)
+                                                .set({
+                                              "id": FirebaseAuth
+                                                  .instance.currentUser!.uid,
+                                              "productId": snapshot.data!.id
+                                            });
+                                            FirebaseFirestore.instance
+                                                .collection("Chats")
+                                                .doc(snapshot.data!["userId"])
+                                                .collection("chat")
+                                                .doc(FirebaseAuth
+                                                    .instance.currentUser!.uid)
+                                                .collection("chats")
+                                                .doc(DateTime.now().toString())
+                                                .set({
+                                              "Message": "Hi",
+                                              "sender": true
+                                            }).then((value) {
+                                              Navigator.pop(context);
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ChatRoom(
+                                                              userId: snapshot
+                                                                      .data![
+                                                                  "userId"],
+                                                              productId:
+                                                                  snapshot.data!
+                                                                      .id)),
+                                                  (route) => false);
+                                            });
+                                          }),
+                                          child: Center(
+                                              child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  "assets/images/message.svg"),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                "Message",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: textSize * 0.02,
+                                                  fontFamily: "Barlow",
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      width: width > height
+                                          ? width * 0.1
+                                          : width * 0.3,
+                                      height: 55,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(11),
+                                        color: Color(0xff008535),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(11),
+                                        child: MaterialButton(
+                                          onPressed: (() async {
+                                            FirebaseFirestore.instance
+                                                .collection("users")
+                                                .doc(FirebaseAuth
+                                                    .instance.currentUser!.uid)
+                                                .collection("Bookings")
+                                                .add({
+                                              "name": snapshot.data!["name"],
+                                              "price": snapshot.data!["price"],
+                                              "description":
+                                                  snapshot.data!["description"],
+                                              "payment": false,
+                                              "images":
+                                                  snapshot.data!["images"],
+                                            }).then((value) {
+                                              FirebaseFirestore.instance
+                                                  .collection(Filter
+                                                              .filterName ==
+                                                          "All"
+                                                      ? "items"
+                                                      : "${Filter.filterName}")
+                                                  .doc(widget.id)
+                                                  .delete()
+                                                  .then((value) {
+                                                Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ConfirmationScreen()),
+                                                    (route) => false);
+                                              });
+                                            });
+                                          }),
+                                          child: Center(
+                                              child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              // SvgPicture.asset(
+                                              //     "assets/images/message.svg"),
+                                              Icon(Icons.card_travel),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                "Buy",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: textSize * 0.02,
+                                                  fontFamily: "Barlow",
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               Row(
                                 children: [

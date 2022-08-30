@@ -117,7 +117,7 @@ class _ProductTileState extends State<ProductTile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              snapshot.data!['price'],
+                              "₹ ${snapshot.data!['price']}",
                               style: TextStyle(
                                 color: Color(0xffecebeb),
                                 fontSize: textSize * 0.02,

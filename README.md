@@ -1,17 +1,22 @@
 # collegebazzar
 
-A new Flutter project.
+A clone of OLX website which can be operated with in any colllege campus.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+User on viewing the website user will be redirected to signup page, if the user is already registered followed to a login screen. Our website supports a login feature for both student and admin-to verify product’s authenticity
+User can add a new item relating to any category of their wish, specifying the required details for the product
+Any product shall not be displayed on the main screen or not a result in any searches if it is not approved by the admin.
+The User interested in buying the product can contact the owner via our super secured chatroom for queries and negotiation, can complete the transaction at their will.
+For Login as an Admin use the credentials
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+website :  <https://collegebazzar.web.app/#/>
+Email:admin@gmail.com
+Password: admin@123
+TechStack used to develop the webapplication:
+Front-End: Flutter
+Backend-End: Firebase/Flutter
+DataBase: Firestore
 # collegebazzar
+
+

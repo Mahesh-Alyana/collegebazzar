@@ -3,6 +3,7 @@ import 'package:collegebazzar/screens/auth/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 import '../user/home_screen.dart';
 
@@ -81,6 +82,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: TextFormField(
+                                  validator: MultiValidator([
+                                    RequiredValidator(
+                                        errorText: "This field is required")
+                                  ]),
                                   controller: userName,
                                   style: const TextStyle(
                                     color: Colors.white,
@@ -118,6 +123,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 child: TextFormField(
                                   controller: email,
+                                  validator: MultiValidator([
+                                    EmailValidator(
+                                        errorText:
+                                            "Give a proper Email( check spacing )"),
+                                    RequiredValidator(
+                                        errorText: "This field is required")
+                                  ]),
                                   style: const TextStyle(
                                     color: Colors.white,
                                   ),
@@ -153,6 +165,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: TextFormField(
+                                  validator: MultiValidator([
+                                    RequiredValidator(
+                                        errorText: "This field is required")
+                                  ]),
                                   controller: rollNumber,
                                   style: const TextStyle(
                                     color: Colors.white,
@@ -189,6 +205,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: TextFormField(
+                                  validator: MultiValidator([
+                                    RequiredValidator(
+                                        errorText: "This field is required")
+                                  ]),
+                                  obscureText: true,
                                   controller: password,
                                   style: const TextStyle(
                                     color: Colors.white,
@@ -225,7 +246,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: TextFormField(
+                                  obscureText: true,
                                   controller: confirmPassword,
+                                  validator: (val) {
+                                    if (val != password.text) {
+                                      return "Confirm password should be same as password give above";
+                                    }
+                                  },
                                   style: const TextStyle(
                                     color: Colors.white,
                                   ),

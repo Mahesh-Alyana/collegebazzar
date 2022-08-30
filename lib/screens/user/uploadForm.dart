@@ -296,7 +296,10 @@ class _UploadFormScreenState extends State<UploadFormScreen> {
                             ),
                             GestureDetector(
                               onTap: (() {
-                                _getFromGallery();
+                                // _getFromGallery();
+                                setState(() {
+                                  images.add("assets/images/product.png");
+                                });
                               }),
                               child: Container(
                                 width: width * 0.3,
@@ -377,7 +380,7 @@ class _UploadFormScreenState extends State<UploadFormScreen> {
                                             ),
                                             // Image.asset("${images[index]}",
                                             //     height: height * 0.1),
-                                            Image.network(
+                                            Image.asset(
                                               images[index],
                                               height: height * 0.1,
                                             )

@@ -11,6 +11,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import '../screens/auth/login_screen.dart';
+import '../screens/user/bookings.dart';
 import '../screens/user/chat_list.dart';
 
 class NavBar extends StatefulWidget {
@@ -152,9 +153,18 @@ class _NavBarState extends State<NavBar> {
                                       }),
                                       child: Text('Chats')),
                                 ),
-                                const PopupMenuItem<String>(
+                                PopupMenuItem<String>(
                                   // value: Menu.itemThree,
-                                  child: Text('Bookings'),
+                                  child: TextButton(
+                                      onPressed: () {
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    BookingsScreen()),
+                                            (route) => true);
+                                      },
+                                      child: Text('Bookings')),
                                 ),
                               ],
                             ),

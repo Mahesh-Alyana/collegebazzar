@@ -3,6 +3,7 @@ import 'package:collegebazzar/screens/user/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -78,6 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                                 child: TextFormField(
                                   controller: email,
+                                  validator: MultiValidator([
+                                    EmailValidator(
+                                        errorText:
+                                            "Give a proper Email( check spacing )"),
+                                    RequiredValidator(
+                                        errorText: "This field is required")
+                                  ]),
                                   style: const TextStyle(
                                     color: Colors.white,
                                   ),
@@ -113,6 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: TextFormField(
+                                  validator: MultiValidator([
+                                    RequiredValidator(
+                                        errorText: "This field is required")
+                                  ]),
+                                  obscureText: true,
                                   controller: password,
                                   style: const TextStyle(
                                     color: Colors.white,
@@ -136,20 +149,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            const Align(
-                              alignment: Alignment.centerRight,
-                              child: const Text(
-                                "Forgot Password?",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontFamily: "Barlow",
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
+                            // const Align(
+                            //   alignment: Alignment.centerRight,
+                            //   child: const Text(
+                            //     "Forgot Password?",
+                            //     style: TextStyle(
+                            //       color: Colors.white,
+                            //       fontSize: 16,
+                            //       fontFamily: "Barlow",
+                            //       fontWeight: FontWeight.w500,
+                            //     ),
+                            //   ),
+                            // ),
                             SizedBox(
-                              height: height * 0.05,
+                              height: height * 0.1,
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
